@@ -1,10 +1,5 @@
 "use client";
-import {
-  useState,
-  useRef,
-  useEffect,
-  ChangeEvent,
-} from "react";
+import { useState, useRef, useEffect, ChangeEvent } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -52,6 +47,8 @@ export default function Countdown() {
     if (isActive && !isPaused) {
       timerRef.current = setInterval(() => {
         setTimeLeft((prevTime) => {
+          console.log(prevTime, "pre");
+
           if (prevTime <= 1) {
             clearInterval(timerRef.current!);
             return 0;
@@ -62,7 +59,7 @@ export default function Countdown() {
 
       return () => {
         if (timerRef.current) {
-          clearInterval(timerRef.current);
+          clearInterval(timerRef.current!);
         }
       };
     }
@@ -97,8 +94,8 @@ export default function Countdown() {
 
   return (
     <div className="Container flex flex-col  justify-center items-center h-screen bg-gray-300 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 className="mb-4 flex justify-center font-semibold text-lg ">
+      <div className="bg-white dark:bg-gray-800  shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 className="mb-8 flex justify-center font-semibold text-lg ">
           Countdown Timer
         </h1>
         <div className="flex gap-4">
@@ -117,7 +114,7 @@ export default function Countdown() {
             Set
           </Button>
         </div>
-        <div className="text-6xl font-bold text-gray-800 dark:text-gray-200 mb-8 text-center">
+        <div className="text-6xl font-bold text-gray-800 dark:text-gray-200 mt-4 mb-8 text-center">
           {formatTime(timeLeft)}
         </div>
         <div className="flex justify-center gap-4">
